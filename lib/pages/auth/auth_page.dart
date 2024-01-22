@@ -1,9 +1,12 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_template_tugas_besar/bloc/login/login_bloc.dart';
 import '../../common/components/buttons.dart';
 import '../../common/constants/colors.dart';
 import '../../common/constants/images.dart';
-import '../dosen/dosen_page.dart';
-import '../mahasiswa/mahasiswa_page.dart';
+// import '../dosen/dosen_page.dart';
+// import '../mahasiswa/mahasiswa_page.dart';
 import 'widgets/login_bottom_sheet.dart';
 
 class AuthPage extends StatefulWidget {
@@ -51,29 +54,6 @@ class _AuthPageState extends State<AuthPage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Button.filled(
-              onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  useSafeArea: true,
-                  isScrollControlled: true,
-                  builder: (BuildContext context) {
-                    return LoginBottomSheet(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const DosenPage(),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                );
-              },
-              label: 'CIVITAS AKADEMIK',
-            ),
             const SizedBox(height: 8.0),
             Button.outlined(
               onPressed: () {
@@ -82,20 +62,25 @@ class _AuthPageState extends State<AuthPage> {
                   useSafeArea: true,
                   isScrollControlled: true,
                   builder: (BuildContext context) {
-                    return LoginBottomSheet(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MahasiswaPage(),
-                          ),
-                        );
-                      },
+                    return BlocProvider(
+                      create: (context) => LoginBloc(),
+                      child: const LoginBottomSheet(),
                     );
+                    // return LoginBottomSheet(
+                    //   onPressed: () {
+                    //     Navigator.pop(context);
+                    //     Navigator.pushReplacement(
+                    //       context,
+                    //       MaterialPageRoute(
+                    //         builder: (context) => const MahasiswaPage(),
+                    //       ),
+                    //     );
+                    //   },
+                    // );
                   },
                 );
               },
+              // label: 'Login',
               label: 'MAHASISWA',
             ),
             const SizedBox(height: 32.0),
