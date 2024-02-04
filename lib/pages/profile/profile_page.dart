@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dash/flutter_dash.dart';
+import 'package:flutter_template_tugas_besar/bloc/bloc/logout_bloc.dart';
+import 'package:flutter_template_tugas_besar/data/datasource/auth_local_datasource.dart';
+import 'package:flutter_template_tugas_besar/pages/auth/auth_page.dart';
 
 import '../../common/components/custom_scaffold.dart';
 import '../../common/components/row_text.dart';
@@ -105,7 +109,52 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
           ),
-          const SizedBox(height: 60.0),
+          const SizedBox(height: 30.0),
+          Center(
+            child: BlocProvider(
+              create: (context) => LogoutBloc(),
+              child: BlocConsumer<LogoutBloc, LogoutState>(
+                listener: (context, state) {
+                  state.maybeWhen(
+                      orElse: () {},
+                      loaded: () {
+                        AuthLocalDatasource().removeAuthData();
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const AuthPage();
+                        }));
+                      },
+                      error: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Logout Error')));
+                      });
+                },
+                builder: (context, state) {
+                  return state.maybeWhen(orElse: () {
+                    return ElevatedButton(
+                      onPressed: () {
+                        context
+                            .read<LogoutBloc>()
+                            .add(const LogoutEvent.logout());
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: ColorName.white,
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text('Logout'),
+                      ),
+                    );
+                  }, loaded: () {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  });
+                },
+              ),
+            ),
+          ),
+          const SizedBox(height: 30.0),
           Container(
             padding:
                 const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),

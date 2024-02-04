@@ -55,7 +55,7 @@ class _AuthPageState extends State<AuthPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(height: 8.0),
-            Button.outlined(
+            Button.filled(
               onPressed: () {
                 showModalBottomSheet(
                   context: context,
@@ -66,22 +66,11 @@ class _AuthPageState extends State<AuthPage> {
                       create: (context) => LoginBloc(),
                       child: const LoginBottomSheet(),
                     );
-                    // return LoginBottomSheet(
-                    //   onPressed: () {
-                    //     Navigator.pop(context);
-                    //     Navigator.pushReplacement(
-                    //       context,
-                    //       MaterialPageRoute(
-                    //         builder: (context) => const MahasiswaPage(),
-                    //       ),
-                    //     );
-                    //   },
-                    // );
                   },
                 );
               },
-              // label: 'Login',
-              label: 'MAHASISWA',
+              label: 'Login',
+              // label: 'MAHASISWA',
             ),
             const SizedBox(height: 32.0),
             const Text.rich(
