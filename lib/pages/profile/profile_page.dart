@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dash/flutter_dash.dart';
-import 'package:flutter_template_tugas_besar/bloc/bloc/logout_bloc.dart';
+import 'package:flutter_template_tugas_besar/bloc/logout/logout_bloc.dart';
 import 'package:flutter_template_tugas_besar/data/datasource/auth_local_datasource.dart';
 import 'package:flutter_template_tugas_besar/pages/auth/auth_page.dart';
 
