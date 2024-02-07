@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
 
-
-
-
 class CustomScaffold extends StatelessWidget {
   final Widget? body;
   final bool useExtraPadding;
   final double paddingTop;
   final Widget? bottomNavigationBar;
+  final PreferredSizeWidget? appBar;
 
   const CustomScaffold({
     super.key,
@@ -17,12 +15,17 @@ class CustomScaffold extends StatelessWidget {
     this.useExtraPadding = false,
     this.paddingTop = 20.0,
     this.bottomNavigationBar,
+    this.appBar,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorName.primary,
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: ColorName.purple,
+      ),
+      // backgroundColor: ColorName.purple,
       body: useExtraPadding
           ? Stack(
               children: [
@@ -60,7 +63,7 @@ class CustomScaffold extends StatelessWidget {
                 child: body,
               ),
             ),
-            bottomNavigationBar: bottomNavigationBar,
+      bottomNavigationBar: bottomNavigationBar,
     );
   }
 }

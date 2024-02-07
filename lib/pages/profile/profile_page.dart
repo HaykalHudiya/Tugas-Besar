@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dash/flutter_dash.dart';
 import 'package:flutter_template_tugas_besar/bloc/logout/logout_bloc.dart';
+import 'package:flutter_template_tugas_besar/common/extensions/date_time_ext.dart';
 import 'package:flutter_template_tugas_besar/data/datasource/auth_local_datasource.dart';
+import 'package:flutter_template_tugas_besar/data/models/response/auth_response_model.dart';
 import 'package:flutter_template_tugas_besar/pages/auth/auth_page.dart';
 
 import '../../common/components/custom_scaffold.dart';
@@ -22,6 +24,14 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  late Future<User?> _userFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _userFuture = AuthLocalDatasource().getUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -30,7 +40,6 @@ class _ProfilePageState extends State<ProfilePage> {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          const SizedBox(height: 60.0),
           Container(
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(10.0)),
@@ -48,57 +57,75 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Column(
               children: [
                 const SizedBox(height: 22.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ClipRRect(
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(50.0)),
-                      child: Image.network(
-                        'https://avatars.githubusercontent.com/u/46390894?v=4',
-                        width: 72.0,
-                        height: 72.0,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    const SizedBox(width: 10.0),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 11.0, vertical: 2.0),
-                          decoration: BoxDecoration(
+                FutureBuilder<User?>(
+                  future: _userFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Center(
+                        child: Text('Error: ${snapshot.error}'),
+                      );
+                    } else if (!snapshot.hasData || snapshot.data == null) {
+                      return const SizedBox(); // Handle jika data tidak tersedia
+                    } else {
+                      User user = snapshot.data!;
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ClipRRect(
                             borderRadius:
-                                const BorderRadius.all(Radius.circular(16.0)),
-                            border: Border.all(color: ColorName.primary),
-                          ),
-                          child: Text(
-                            widget.role,
-                            style: const TextStyle(
-                              color: ColorName.primary,
-                              fontSize: 8,
-                              fontWeight: FontWeight.w500,
+                                const BorderRadius.all(Radius.circular(50.0)),
+                            child: Image.asset(
+                              'assets/images/profile.jpg',
+                              height: 40.0,
+                              width: 40.0,
+                              fit: BoxFit.cover,
                             ),
                           ),
-                        ),
-                        const Text(
-                          "Nama Saya",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: ColorName.primary,
+                          const SizedBox(width: 10.0),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 11.0, vertical: 2.0),
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(16.0)),
+                                  border: Border.all(color: ColorName.primary),
+                                ),
+                                child: Text(
+                                  user.roles,
+                                  style: const TextStyle(
+                                    color: ColorName.primary,
+                                    fontSize: 8,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                user.name,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  color: ColorName.primary,
+                                ),
+                              ),
+                              Text(
+                                DateTime.now().toFormattedDateWithDay(),
+                                style: TextStyle(
+                                  fontSize: 8,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        const Text(
-                          "Senin, 28 Agustus 2023",
-                          style: TextStyle(
-                            fontSize: 8,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      );
+                    }
+                  },
                 ),
                 const SizedBox(height: 5.0),
                 Dash(

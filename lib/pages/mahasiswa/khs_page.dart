@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_template_tugas_besar/data/datasource/auth_local_datasource.dart';
+import 'package:flutter_template_tugas_besar/data/models/response/auth_response_model.dart';
 
 import '../../common/components/custom_scaffold.dart';
 import '../../common/components/row_text.dart';
@@ -12,6 +14,14 @@ class KhsPage extends StatefulWidget {
 }
 
 class _KhsPageState extends State<KhsPage> {
+  late Future<User?> _userFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _userFuture = AuthLocalDatasource().getUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -44,31 +54,50 @@ class _KhsPageState extends State<KhsPage> {
             ],
           ),
           const SizedBox(height: 16.0),
-          ListTile(
-            contentPadding: const EdgeInsets.all(0),
-            leading: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(50.0)),
-              child: Image.network(
-                'https://assets.ayobandung.com/crop/0x0:0x0/750x500/webp/photo/2021/12/15/1405406409.jpg',
-                width: 40,
-                height: 40,
-                fit: BoxFit.cover,
-              ),
-            ),
-            title: const Text(
-              "Jesica Jane",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            subtitle: const Text(
-              "Mahasiswa",
-              style: TextStyle(
-                fontSize: 12,
-              ),
-            ),
+          FutureBuilder<User?>(
+            future: _userFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('Error: ${snapshot.error}'),
+                );
+              } else if (!snapshot.hasData || snapshot.data == null) {
+                return const SizedBox(); // Handle jika data tidak tersedia
+              } else {
+                User user = snapshot.data!;
+                return ListTile(
+                  contentPadding: const EdgeInsets.all(0),
+                  leading: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(50.0)),
+                    child: Image.asset(
+                      'assets/images/profile.jpg',
+                      height: 40.0,
+                      width: 40.0,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  title: Text(
+                    user.name,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  subtitle: Text(
+                    user.roles,
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
+                );
+              }
+            },
           ),
+          //
           const SizedBox(height: 16.0),
           const Divider(),
           const SizedBox(height: 16.0),
@@ -116,3 +145,39 @@ class _KhsPageState extends State<KhsPage> {
     );
   }
 }
+
+// ListTile buildUserProfile(User user) {
+//   return ListTile(
+//     contentPadding: const EdgeInsets.all(0),
+//     leading: ClipRRect(
+//       borderRadius: const BorderRadius.all(Radius.circular(50.0)),
+//       child: Container(
+//         width: 72.0,
+//         height: 72.0,
+//         color: Colors.blue, // Warna latar belakang avatar
+//         alignment: Alignment.center,
+//         child: Text(
+//           user.name,
+//           style: const TextStyle(
+//             color: Colors.white,
+//             fontWeight: FontWeight.bold,
+//             fontSize: 24.0,
+//           ),
+//         ),
+//       ),
+//     ),
+//     title: Text(
+//       user.name,
+//       style: const TextStyle(
+//         fontSize: 16,
+//         fontWeight: FontWeight.w700,
+//       ),
+//     ),
+//     subtitle: Text(
+//       user.roles,
+//       style: const TextStyle(
+//         fontSize: 12,
+//       ),
+//     ),
+//   );
+// }

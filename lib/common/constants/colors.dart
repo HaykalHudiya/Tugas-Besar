@@ -9,4 +9,5 @@ class ColorName {
   static const Color green = Color(0xff31AA27);
   static const Color red = Color(0xffda251c);
   static const Color lightGreen = Color(0xffEBF6EB);
+  static const Color purple = Color(0xff28156f);
 }
