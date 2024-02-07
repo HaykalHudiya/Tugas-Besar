@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_template_tugas_besar/bloc/Khs/khs_bloc.dart';
 import 'package:flutter_template_tugas_besar/data/datasource/auth_local_datasource.dart';
 import 'package:flutter_template_tugas_besar/data/models/response/auth_response_model.dart';
-
+// import 'package:bloc/bloc.dart';
 import '../../common/components/custom_scaffold.dart';
 import '../../common/components/row_text.dart';
 import '../../common/constants/colors.dart';
@@ -20,6 +22,7 @@ class _KhsPageState extends State<KhsPage> {
   void initState() {
     super.initState();
     _userFuture = AuthLocalDatasource().getUser();
+    context.read<KhsBloc>().add(const KhsEvent.getKhs());
   }
 
   @override

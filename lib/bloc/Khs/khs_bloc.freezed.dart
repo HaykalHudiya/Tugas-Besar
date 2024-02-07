@@ -19,32 +19,38 @@ mixin _$KhsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
+    required TResult Function() getKhs,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
+    TResult? Function()? getKhs,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
+    TResult Function()? getKhs,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
+    required TResult Function(_GetKhs value) getKhs,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
+    TResult? Function(_GetKhs value)? getKhs,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_GetKhs value)? getKhs,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -106,6 +112,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
+    required TResult Function() getKhs,
   }) {
     return started();
   }
@@ -114,6 +121,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
+    TResult? Function()? getKhs,
   }) {
     return started?.call();
   }
@@ -122,6 +130,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
+    TResult Function()? getKhs,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -134,6 +143,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
+    required TResult Function(_GetKhs value) getKhs,
   }) {
     return started(this);
   }
@@ -142,6 +152,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
+    TResult? Function(_GetKhs value)? getKhs,
   }) {
     return started?.call(this);
   }
@@ -150,6 +161,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_GetKhs value)? getKhs,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -164,12 +176,114 @@ abstract class _Started implements KhsEvent {
 }
 
 /// @nodoc
+abstract class _$$GetKhsImplCopyWith<$Res> {
+  factory _$$GetKhsImplCopyWith(
+          _$GetKhsImpl value, $Res Function(_$GetKhsImpl) then) =
+      __$$GetKhsImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetKhsImplCopyWithImpl<$Res>
+    extends _$KhsEventCopyWithImpl<$Res, _$GetKhsImpl>
+    implements _$$GetKhsImplCopyWith<$Res> {
+  __$$GetKhsImplCopyWithImpl(
+      _$GetKhsImpl _value, $Res Function(_$GetKhsImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GetKhsImpl implements _GetKhs {
+  const _$GetKhsImpl();
+
+  @override
+  String toString() {
+    return 'KhsEvent.getKhs()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$GetKhsImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function() getKhs,
+  }) {
+    return getKhs();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function()? getKhs,
+  }) {
+    return getKhs?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function()? getKhs,
+    required TResult orElse(),
+  }) {
+    if (getKhs != null) {
+      return getKhs();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_GetKhs value) getKhs,
+  }) {
+    return getKhs(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_GetKhs value)? getKhs,
+  }) {
+    return getKhs?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_GetKhs value)? getKhs,
+    required TResult orElse(),
+  }) {
+    if (getKhs != null) {
+      return getKhs(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetKhs implements KhsEvent {
+  const factory _GetKhs() = _$GetKhsImpl;
+}
+
+/// @nodoc
 mixin _$KhsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(List<Khs> khs) loaded,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -177,7 +291,7 @@ mixin _$KhsState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? loaded,
+    TResult? Function(List<Khs> khs)? loaded,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -185,7 +299,7 @@ mixin _$KhsState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(List<Khs> khs)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -274,7 +388,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(List<Khs> khs) loaded,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -285,7 +399,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? loaded,
+    TResult? Function(List<Khs> khs)? loaded,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -296,7 +410,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(List<Khs> khs)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -388,7 +502,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(List<Khs> khs) loaded,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -399,7 +513,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? loaded,
+    TResult? Function(List<Khs> khs)? loaded,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -410,7 +524,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(List<Khs> khs)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -467,6 +581,8 @@ abstract class _$$LoadedImplCopyWith<$Res> {
   factory _$$LoadedImplCopyWith(
           _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
       __$$LoadedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Khs> khs});
 }
 
 /// @nodoc
@@ -476,36 +592,66 @@ class __$$LoadedImplCopyWithImpl<$Res>
   __$$LoadedImplCopyWithImpl(
       _$LoadedImpl _value, $Res Function(_$LoadedImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? khs = null,
+  }) {
+    return _then(_$LoadedImpl(
+      null == khs
+          ? _value._khs
+          : khs // ignore: cast_nullable_to_non_nullable
+              as List<Khs>,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl();
+  const _$LoadedImpl(final List<Khs> khs) : _khs = khs;
+
+  final List<Khs> _khs;
+  @override
+  List<Khs> get khs {
+    if (_khs is EqualUnmodifiableListView) return _khs;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_khs);
+  }
 
   @override
   String toString() {
-    return 'KhsState.loaded()';
+    return 'KhsState.loaded(khs: $khs)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadedImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$LoadedImpl &&
+            const DeepCollectionEquality().equals(other._khs, _khs));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_khs));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
+      __$$LoadedImplCopyWithImpl<_$LoadedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(List<Khs> khs) loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded();
+    return loaded(khs);
   }
 
   @override
@@ -513,10 +659,10 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? loaded,
+    TResult? Function(List<Khs> khs)? loaded,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call();
+    return loaded?.call(khs);
   }
 
   @override
@@ -524,12 +670,12 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(List<Khs> khs)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded();
+      return loaded(khs);
     }
     return orElse();
   }
@@ -573,7 +719,12 @@ class _$LoadedImpl implements _Loaded {
 }
 
 abstract class _Loaded implements KhsState {
-  const factory _Loaded() = _$LoadedImpl;
+  const factory _Loaded(final List<Khs> khs) = _$LoadedImpl;
+
+  List<Khs> get khs;
+  @JsonKey(ignore: true)
+  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -642,7 +793,7 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loaded,
+    required TResult Function(List<Khs> khs) loaded,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -653,7 +804,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? loaded,
+    TResult? Function(List<Khs> khs)? loaded,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -664,7 +815,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loaded,
+    TResult Function(List<Khs> khs)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
