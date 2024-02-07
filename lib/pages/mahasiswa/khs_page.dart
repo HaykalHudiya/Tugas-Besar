@@ -22,7 +22,7 @@ class _KhsPageState extends State<KhsPage> {
   void initState() {
     super.initState();
     _userFuture = AuthLocalDatasource().getUser();
-    context.read<KhsBloc>().add(const KhsEvent.getKhs());
+    // context.read<KhsBloc>().add(const KhsEvent.getKhs());
   }
 
   @override
